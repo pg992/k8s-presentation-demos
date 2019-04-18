@@ -1,0 +1,24 @@
+Kubectl commands
+----------------
+
+kubectl get deployments nginx `
+>> -o jsonpath='{.spec.selector.matchLabels}'
+
+kubectl get rs --selector=run=nginx
+
+kubectl scale deployments nginx --replicas=2
+
+kubectl rollout status deployments nginx
+
+kubectl get rs -o wide -w
+
+kubectl rollout pause deployments nginx
+kubectl rollout resume deployments nginx
+
+kubectl rollout history deployment nginx
+kubectl rollout history deployment nginx --revision=2
+
+kubectl rollout undo deployments nginx --to-revision=3
+
+kubectl delete deploments nginx
+

@@ -1,0 +1,32 @@
+helm init --history-max 200
+helm init --upgrade
+draft create --pack=csharp
+kubectl create clusterrolebinding configmaps --clusterrole=cluster-admin --serviceaccount=kube-system:default
+draft up
+draft connect
+
+
+
+
+
+
+https://hub.kubeapps.com/
+
+
+
+
+
+
+
+Helm commands
+-------------
+helm list -a
+helm remove sampleapp
+helm --help
+helm delete sampleapp
+helm list -a
+helm delete release sample
+helm ls --all --short | xargs -L1 helm delete --purge
+helm ls --all --short
+helm del sampleapp --purge
+helm ls --all --short

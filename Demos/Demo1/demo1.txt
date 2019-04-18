@@ -1,0 +1,7 @@
+Kubectl commands
+---------------
+kubectl apply -f .\1-pod.yaml
+kubectl port-forward kuard 8080:8080
+kubectl logs kuard
+kubectl exec -it kuard ash
+kubectl delete pods kuard
