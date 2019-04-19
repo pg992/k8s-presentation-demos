@@ -1,24 +1,24 @@
 Kubectl commands
 ----------------
 
+kubectl run nginx --image=nginx:1.7.12
 kubectl get deployments nginx `
->> -o jsonpath='{.spec.selector.matchLabels}'
-
+ -o jsonpath='{.spec.selector.matchLabels}'
 kubectl get rs --selector=run=nginx
-
 kubectl scale deployments nginx --replicas=2
+kubectl get deployments nginx --export -o yaml > nginx-deployment.yaml
+kubectl replace -f nginx-deployment.yaml --save-config
 
 kubectl rollout status deployments nginx
-
 kubectl get rs -o wide -w
 
 kubectl rollout pause deployments nginx
 kubectl rollout resume deployments nginx
 
 kubectl rollout history deployment nginx
-kubectl rollout history deployment nginx --revision=2
+kubectl rollout history deployment nginx --revision=1
 
-kubectl rollout undo deployments nginx --to-revision=3
+kubectl rollout undo deployments nginx --to-revision=1
 
 kubectl delete deploments nginx
 

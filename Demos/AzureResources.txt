@@ -1,16 +1,34 @@
+$name1='kube-demos-backup'
+$registryName='k8demosbackup'
+$name='kube-demos'
+$registryName='k8demos'
+
 Azure resources
 ---------------
-az group create --name demo-1 --location WestEurope
-az aks create --resource-group demo-1 --name demo-1 --node-count 2 --generate-ssh-keys --kubernetes-version 1.10.12 --node-vm-size Standard_B2s
-az aks get-credentials --resource-group demo-1 --name demo-1
-az acr create --resource-group demo-1 --name demo-1 --sku Basic --admin-enabled true
-az acr login --name demo-1
-az aks use-dev-spaces --resource-group demo-1 --name demo-1
+az group create --name $name --location WestEurope
+az aks create --resource-group $name --name $name --node-count 2 --generate-ssh-keys --kubernetes-version 1.10.12 --node-vm-size Standard_B2s
+az aks get-credentials --resource-group $name --name $name
+az acr create --resource-group $name --name $registryName --sku Basic --admin-enabled true
+az acr login --name $registryName
+
+
+az aks use-dev-spaces --resource-group $name --name $name
+az aks remove-dev-spaces --resource-group $name --name $name
+
+Acr
+------
+$creds = az acr credential show --name $registryName
+foreach($i in $creds) { $credToString += $i.ToString() }
+$credsObj = ConvertFrom-Json -InputObject $credToString
+$pass=$credsObj.passwords[0].value
+$username=$credsObj.username
+$loginServer=$registryName+ '.azurecr.io'
+docker login $loginServer -u $username -p $pass
 
 Kubernetes dashboard
 ----------------
 kubectl create clusterrolebinding kubernetes-dashboard --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard
-az aks browse --resource-group demo-1 --name demo-1
+az aks browse --resource-group $name --name $name
 
 Nodes
 -----------

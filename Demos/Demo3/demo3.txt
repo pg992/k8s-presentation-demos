@@ -6,6 +6,8 @@ kubectl run alpaca-prod `
 
 kubectl expose deployment alpaca-prod
 
+kubectl describe service alpaca-prod
+
 $ALPACA_POD=$(kubectl get pods -l app=alpaca `
 -o jsonpath='{.items[0].metadata.name}')
 
@@ -13,3 +15,5 @@ kubectl port-forward $ALPACA_POD 48858:8080
 
 
 kubectl get endpoints alpaca-prod --watch
+
+kubectl edit service/alpaca-prod
